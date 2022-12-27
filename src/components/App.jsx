@@ -3,7 +3,7 @@ import { Component } from 'react';
 import fetchPictures from './API/PixabayAPI';
 import ImageGallery from './ImageGallery/ImageGallery';
 import Button from './Button/Button';
-import Loader from './Loader/Loader';
+import { Loader } from './Loader/Loader';
 import Modal from './Modal/Modal';
 import Searchbar from './Searchbar/Searchbar';
 
@@ -86,8 +86,15 @@ class App extends Component {
     this.setState({ imageAlt: e });
   };
 
-  toggleModal = () => {
-    this.setState(({ showModal }) => ({ showModal: !showModal }));
+  openModal = e => {
+    this.setState({ showModal: true });
+    this.setState({ modalImage: e.target.src });
+    this.setState({ imageAlt: e.target.alt });
+    console.log(e.target.src);
+    console.log(e.target.alt);
+  };
+  closeModal = () => {
+    this.setState({ showModal: false });
   };
 
   render() {
@@ -96,7 +103,6 @@ class App extends Component {
 
     const {
       handleFormSumbit,
-      toggleModal,
       handleModalImage,
       handleModalAlt,
       loadMoreImages,
@@ -110,7 +116,7 @@ class App extends Component {
 
         {images.length > 0 && (
           <ImageGallery
-            showModal={toggleModal}
+            showModal={this.openModal}
             images={images}
             handleModalImage={handleModalImage}
             handleModalAlt={handleModalAlt}
@@ -120,9 +126,11 @@ class App extends Component {
         {showButton && <Button onClick={loadMoreImages} />}
 
         {showModal && (
-          <Modal onClose={toggleModal}>
-            <img src={modalImage} alt={imageAlt} />
-          </Modal>
+          <Modal
+            onClose={this.closeModal}
+            modalImage={modalImage}
+            imageAlt={imageAlt}
+          ></Modal>
         )}
       </>
     );

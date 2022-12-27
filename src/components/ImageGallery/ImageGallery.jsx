@@ -1,3 +1,4 @@
+import React from 'react';
 import { ImageGalleryItem } from '../ImageGalleryItem/ImageGalleryItem';
 import style from './ImageGallery.module.css';
 

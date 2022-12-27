@@ -2,7 +2,7 @@ import { RotatingLines } from 'react-loader-spinner';
 
 import style from './Loader.module.css';
 
-const Loader = () => {
+export const Loader = () => {
   return (
     <section className={style.SectionLoader}>
       <RotatingLines
@@ -15,5 +15,3 @@ const Loader = () => {
     </section>
   );
 };
-
-export default Loader;

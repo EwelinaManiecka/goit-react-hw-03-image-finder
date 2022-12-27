@@ -1,6 +1,7 @@
 import { Component } from 'react';
-
-import style from './Searchbar.modal.css';
+import { FcSearch } from 'react-icons/fc';
+import style from './Searchbar.module.css';
+import PropTypes from 'prop-types';
 
 class Searchbar extends Component {
   state = {
@@ -8,7 +9,7 @@ class Searchbar extends Component {
   };
 
   handleImageChange = e => {
-    this.setState({ searchImage: e.currentTarget.value.toLowerCase() });
+    this.setState({ searchImage: e.currentTarget.value });
   };
 
   handleSubmit = e => {
@@ -27,9 +28,9 @@ class Searchbar extends Component {
       <header className={style.Searchbar}>
         <form className={style.SearchForm} onSubmit={this.handleSubmit}>
           <button type="submit" className={style.SearchForm__button}>
+            <FcSearch size={25} />
             <span className={style.SearchForm__button__label}>Search</span>
           </button>
-
           <input
             className={style.SearchForm__input}
             type="text"
@@ -46,5 +47,8 @@ class Searchbar extends Component {
     );
   }
 }
+Searchbar.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};
 
 export default Searchbar;

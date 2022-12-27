@@ -1,8 +1,5 @@
 import { Component } from 'react';
-import { createPortal } from 'react-dom';
 import style from './Modal.module.css';
-
-const modalRoot = document.querySelector('#modal-root');
 
 class Modal extends Component {
   componentDidMount() {
@@ -16,6 +13,7 @@ class Modal extends Component {
   handleKeyDown = e => {
     if (e.code === 'Escape') {
       this.props.onClose();
+      // console.log('test');
     }
   };
 
@@ -26,11 +24,12 @@ class Modal extends Component {
   };
 
   render() {
-    return createPortal(
+    return (
       <div className={style.Overlay} onClick={this.handleBackdropClick}>
-        <div className={style.Modal}>{this.props.children}</div>
-      </div>,
-      modalRoot
+        <div className={style.Modal}>
+          <img src={this.props.modalImage} alt={this.props.imageAlt} />
+        </div>
+      </div>
     );
   }
 }
