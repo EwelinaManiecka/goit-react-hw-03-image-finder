@@ -90,8 +90,6 @@ class App extends Component {
     this.setState({ showModal: true });
     this.setState({ modalImage: e.target.src });
     this.setState({ imageAlt: e.target.alt });
-    console.log(e.target.src);
-    console.log(e.target.alt);
   };
   closeModal = () => {
     this.setState({ showModal: false });
