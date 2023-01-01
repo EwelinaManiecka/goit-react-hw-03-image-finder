@@ -43,6 +43,7 @@ class App extends Component {
               showButton: false,
               status: Status.IDLE,
             });
+            
             return alert('No images on your query');
           }
 
@@ -128,7 +129,7 @@ class App extends Component {
             onClose={this.closeModal}
             modalImage={modalImage}
             imageAlt={imageAlt}
-          ></Modal>
+          />
         )}
       </>
     );

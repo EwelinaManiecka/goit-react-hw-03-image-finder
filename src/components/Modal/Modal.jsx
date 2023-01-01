@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import PropTypes from 'prop-types';
 import style from './Modal.module.css';
 
 class Modal extends Component {
@@ -13,7 +14,6 @@ class Modal extends Component {
   handleKeyDown = e => {
     if (e.code === 'Escape') {
       this.props.onClose();
-      // console.log('test');
     }
   };
 
@@ -33,5 +33,8 @@ class Modal extends Component {
     );
   }
 }
+Modal.propTypes = {
+  onClick: PropTypes.func,
+};
 
 export default Modal;

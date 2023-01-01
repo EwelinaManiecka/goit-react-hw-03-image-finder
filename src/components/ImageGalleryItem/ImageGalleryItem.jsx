@@ -1,11 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import style from 'components/ImageGalleryItem/ImageGalleryItem.module.css';
 
 export const ImageGalleryItem = ({
   images,
   handleModalImage,
   handleModalAlt,
-  showModal,
+  openModal,
 }) => {
   return (
     <>
@@ -13,7 +14,7 @@ export const ImageGalleryItem = ({
         <li
           key={image.id}
           className={style.ImageGalleryItem}
-          onClick={showModal}
+          onClick={openModal}
         >
           <img
             src={image.webformatURL}
@@ -28,6 +29,15 @@ export const ImageGalleryItem = ({
       ))}
     </>
   );
+};
+ImageGalleryItem.propTypes = {
+  openModal: PropTypes.func,
+  images: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      webformatURL: PropTypes.string.isRequired,
+    })
+  ),
 };
 
 export default ImageGalleryItem;
