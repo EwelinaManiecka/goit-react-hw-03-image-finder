@@ -25,11 +25,14 @@ export const ImageGallery = ({
 };
 
 ImageGalleryItem.propTypes = {
-  openModal: PropTypes.func,
+  showModal: PropTypes.func,
+  handleModalImage: PropTypes.func,
+  handleModalAlt: PropTypes.func,
   images: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
       webformatURL: PropTypes.string.isRequired,
+      largeImageURL: PropTypes.string.isRequired,
     })
   ),
 };

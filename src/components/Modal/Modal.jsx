@@ -35,6 +35,9 @@ class Modal extends Component {
 }
 Modal.propTypes = {
   onClick: PropTypes.func,
+  onClose: PropTypes.func,
+  modalImage: PropTypes.string.isRequired,
+  imageAlt: PropTypes.string.isRequired,
 };
 
 export default Modal;

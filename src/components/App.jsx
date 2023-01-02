@@ -20,10 +20,9 @@ class App extends Component {
     images: [],
     page: 1,
     showButton: false,
-    showModal: false,
     status: Status.IDLE,
-    modalImage: '',
-    imageAlt: '',
+    modal: { show: false, img: null, alt: null },
+    alert: false,
   };
 
   componentDidUpdate(_, prevState) {
@@ -34,7 +33,7 @@ class App extends Component {
     const nextPage = this.state.page;
 
     if (prevName !== nextName || prevPage !== nextPage) {
-      this.setState({ status: Status.PENDING });
+      this.setState({ status: Status.PENDING, alert: false });
 
       fetchPictures(nextName, this.state.page)
         .then(images => {
@@ -42,9 +41,10 @@ class App extends Component {
             this.setState({
               showButton: false,
               status: Status.IDLE,
+              alert: true,
             });
-            
-            return alert('No images on your query');
+
+            // return alert('No images on your query');
           }
 
           this.setState(prevState => ({
@@ -70,7 +70,7 @@ class App extends Component {
       page: 1,
       images: [],
       showButton: false,
-      showModal: false,
+      modal: { show: false, img: null, alt: null },
       status: Status.IDLE,
     });
   };
@@ -80,25 +80,24 @@ class App extends Component {
   };
 
   handleModalImage = e => {
-    this.setState({ modalImage: e });
+    this.setState({ img: e });
   };
 
   handleModalAlt = e => {
-    this.setState({ imageAlt: e });
+    this.setState({ alt: e });
   };
 
   openModal = e => {
-    this.setState({ showModal: true });
-    this.setState({ modalImage: e.target.src });
-    this.setState({ imageAlt: e.target.alt });
+    this.setState({ modal: { show: true } });
+    this.setState({ modal: { img: e.target.src } });
+    this.setState({ modal: { alt: e.target.alt } });
   };
   closeModal = () => {
-    this.setState({ showModal: false });
+    this.setState({ modal: { show: false, img: null, alt: null } });
   };
 
   render() {
-    const { images, status, showModal, modalImage, imageAlt, showButton } =
-      this.state;
+    const { images, status, modal, img, alt, showButton } = this.state;
 
     const {
       handleFormSumbit,
@@ -111,8 +110,7 @@ class App extends Component {
       <>
         <Searchbar onSubmit={handleFormSumbit} />
         {status === 'idle' && <h2>Search something</h2>}
-        {status === 'pending' && <Loader />}
-
+        {status === 'pending' && alert === false && <Loader />}
         {images.length > 0 && (
           <ImageGallery
             showModal={this.openModal}
@@ -124,13 +122,7 @@ class App extends Component {
 
         {showButton && <Button onClick={loadMoreImages} />}
 
-        {showModal && (
-          <Modal
-            onClose={this.closeModal}
-            modalImage={modalImage}
-            imageAlt={imageAlt}
-          />
-        )}
+        {modal && <Modal onClose={this.closeModal} img={img} alt={alt} />}
       </>
     );
   }
