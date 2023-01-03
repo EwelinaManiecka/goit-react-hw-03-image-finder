@@ -2,12 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import style from 'components/ImageGalleryItem/ImageGalleryItem.module.css';
 
-export const ImageGalleryItem = ({
-  images,
-  handleModalImage,
-  handleModalAlt,
-  showModal,
-}) => {
+export const ImageGalleryItem = ({ images, showModal }) => {
   return (
     <>
       {images.map(image => (
