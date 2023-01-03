@@ -20,10 +20,7 @@ export const ImageGalleryItem = ({
             src={image.webformatURL}
             alt={image.tags}
             className={style.ImageGalleryItem__image}
-            onClick={() => {
-              handleModalImage(image.largeImageURL);
-              handleModalAlt(image.tags);
-            }}
+            onClick={showModal}
           />
         </li>
       ))}
@@ -32,8 +29,6 @@ export const ImageGalleryItem = ({
 };
 ImageGalleryItem.propTypes = {
   showModal: PropTypes.func,
-  handleModalImage: PropTypes.func,
-  handleModalAlt: PropTypes.func,
   images: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,

@@ -27,7 +27,7 @@ class Modal extends Component {
     return (
       <div className={style.Overlay} onClick={this.handleBackdropClick}>
         <div className={style.Modal}>
-          <img src={this.props.modalImage} alt={this.props.imageAlt} />
+          <img src={this.props.img} alt={this.props.alt} />
         </div>
       </div>
     );
@@ -36,8 +36,6 @@ class Modal extends Component {
 Modal.propTypes = {
   onClick: PropTypes.func,
   onClose: PropTypes.func,
-  modalImage: PropTypes.string.isRequired,
-  imageAlt: PropTypes.string.isRequired,
 };
 
 export default Modal;

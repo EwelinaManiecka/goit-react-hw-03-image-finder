@@ -22,7 +22,7 @@ class App extends Component {
     showButton: false,
     status: Status.IDLE,
     modal: { show: false, img: null, alt: null },
-    alert: false,
+    alertState: false,
   };
 
   componentDidUpdate(_, prevState) {
@@ -33,7 +33,7 @@ class App extends Component {
     const nextPage = this.state.page;
 
     if (prevName !== nextName || prevPage !== nextPage) {
-      this.setState({ status: Status.PENDING, alert: false });
+      this.setState({ status: Status.PENDING, alertState: false });
 
       fetchPictures(nextName, this.state.page)
         .then(images => {
@@ -41,10 +41,8 @@ class App extends Component {
             this.setState({
               showButton: false,
               status: Status.IDLE,
-              alert: true,
+              alertState: true,
             });
-
-            // return alert('No images on your query');
           }
 
           this.setState(prevState => ({
@@ -88,41 +86,34 @@ class App extends Component {
   };
 
   openModal = e => {
-    this.setState({ modal: { show: true } });
-    this.setState({ modal: { img: e.target.src } });
-    this.setState({ modal: { alt: e.target.alt } });
+    this.setState({
+      modal: { show: true, img: e.target.src, alt: e.target.alt },
+    });
   };
   closeModal = () => {
     this.setState({ modal: { show: false, img: null, alt: null } });
   };
 
   render() {
-    const { images, status, modal, img, alt, showButton } = this.state;
+    const { images, status, modal, showButton, alertState } = this.state;
 
-    const {
-      handleFormSumbit,
-      handleModalImage,
-      handleModalAlt,
-      loadMoreImages,
-    } = this;
+    const { handleFormSumbit, loadMoreImages } = this;
 
     return (
       <>
         <Searchbar onSubmit={handleFormSumbit} />
         {status === 'idle' && <h2>Search something</h2>}
-        {status === 'pending' && alert === false && <Loader />}
+        {status === 'pending' && alertState === false && <Loader />}
+        {alertState && <h2>Try again</h2>}
         {images.length > 0 && (
-          <ImageGallery
-            showModal={this.openModal}
-            images={images}
-            handleModalImage={handleModalImage}
-            handleModalAlt={handleModalAlt}
-          />
+          <ImageGallery showModal={this.openModal} images={images} />
         )}
 
         {showButton && <Button onClick={loadMoreImages} />}
 
-        {modal && <Modal onClose={this.closeModal} img={img} alt={alt} />}
+        {modal.show && (
+          <Modal onClose={this.closeModal} img={modal.img} alt={modal.alt} />
+        )}
       </>
     );
   }

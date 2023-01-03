@@ -3,22 +3,12 @@ import PropTypes from 'prop-types';
 import { ImageGalleryItem } from '../ImageGalleryItem/ImageGalleryItem';
 import style from './ImageGallery.module.css';
 
-export const ImageGallery = ({
-  images,
-  handleModalImage,
-  handleModalAlt,
-  showModal,
-}) => {
+export const ImageGallery = ({ images, showModal }) => {
   return (
     <div>
       <h2>Gallery</h2>
       <ul className={style.ImageGallery}>
-        <ImageGalleryItem
-          images={images}
-          handleModalImage={handleModalImage}
-          handleModalAlt={handleModalAlt}
-          showModal={showModal}
-        />
+        <ImageGalleryItem images={images} showModal={showModal} />
       </ul>
     </div>
   );
@@ -26,8 +16,6 @@ export const ImageGallery = ({
 
 ImageGalleryItem.propTypes = {
   showModal: PropTypes.func,
-  handleModalImage: PropTypes.func,
-  handleModalAlt: PropTypes.func,
   images: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
